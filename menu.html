@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Caserina Caffee</title>
+  <meta name="description" content="Welcome to Caserina Caffee – Refreshing Drinks, Hot Coffee, Sweet Treats. Choose your items.">
+
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', Roboto, Arial, sans-serif;
+    }
+
+    /* --- Background Configuration --- */
+    /* Intentionally left blank to remove background image for performance on menu.html */
+    /* The background image is kept on index.html */
+    /* --- End Background Configuration --- */
+
+    body {
+      /* Use a solid background color for performance */
+      /* background-image: none; is implicit */
+      background-color: #0f3460; /* Dark blue fallback */
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      /* Add a subtle shadow to the entire page content to separate it from the background */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Animated Bubbles Background - Same as index.html */
+    .bubble {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      filter: blur(0.5px);
+      z-index: -1;
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0.3; }
+      50% { opacity: 0.6; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Logo Wrapper - Perfect Circle (Same as index.html) */
+    .logo-wrapper {
+      width: 14vw;
+      max-width: 100px;
+      height: 14vw;
+      max-height: 100px;
+      border-radius: 50%;
+      border: 3px solid #ffb703;
+      box-shadow: 0 0 25px rgba(255, 183, 3, 0.6);
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      filter: brightness(1.2);
+      position: relative;
+      z-index: 3;
+      /* Ensure it's positioned correctly at the top */
+      margin-top: 1rem;
+    }
+    .logo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      filter: brightness(1.1) contrast(1.1);
+      display: block;
+    }
+
+    .welcome-text {
+      margin-top: 12px;
+      font-size: clamp(1.1rem, 4vw, 1.6rem);
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+      pointer-events: auto;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .welcome-text small {
+      display: block;
+      font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+      color: #ffd166;
+      margin-top: 6px;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    .tagline {
+      font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+      margin-top: 12px;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-width: 90%;
+      pointer-events: auto;
+      text-align: center;
+    }
+    .tagline span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Category Accordion */
+    .category {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      margin: 1rem 0.9rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(4px);
+    }
+    .category-header {
+      padding: 1.1rem 1rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--desc-color, #ffb703);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+    .category-header:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .category-header span {
+      font-size: 1.3rem;
+      transition: transform 0.3s ease;
+    }
+    .category-header.active span {
+      transform: rotate(90deg);
+    }
+    .category-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s cubic-bezier(0, 1, 0, 1);
+      will-change: max-height;
+    }
+
+    /* Menu Items */
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0.6rem 1rem;
+      padding: 0.9rem;
+      border-radius: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    .menu-item:hover {
+      background: rgba(255, 255, 255, 0.13);
+      transform: translateY(-2px) scale(1.02);
+    }
+    .menu-item img {
+      width: 65px;
+      height: 65px;
+      border-radius: 0.6rem;
+      object-fit: cover;
+      background: #222;
+      flex: 0 0 65px;
+    }
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .item-info h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.2rem;
+      color: #fff;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+    .item-info p:not(.item-price) {
+      font-size: 0.85rem;
+      line-height: 1.35;
+      color: var(--desc-color, #ffb703);
+    }
+    .item-price {
+      font-weight: 700;
+      color: #e63946;
+      font-size: 0.95rem;
+      margin-top: 0.2rem;
+    }
+
+    /* Back to Main Menu Button Style (Standalone at the end) */
+    #back-button-container {
+        text-align: center;
+        margin: 2rem 1rem; /* Add some vertical margin */
+        /* Ensure it's visible even if last category is short */
+        min-height: 60px; /* Approximate button height + margins */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #back-button-container a {
+        display: inline-block;
+        padding: 0.75rem 1.5rem; /* Slightly larger padding */
+        background-color: #ffb703; /* Gold */
+        color: #1a1a2e; /* Dark blue background color */
+        text-decoration: none;
+        border-radius: 0.75rem; /* Slightly larger radius */
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+        /* Ensure it's a block element for transitions */
+        width: auto;
+    }
+    #back-button-container a:hover {
+        background-color: #e6a300; /* Slightly darker gold on hover */
+        transform: scale(1.05); /* Slight scale on hover */
+    }
+
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin: 2rem 0 2.5rem;
+      font-size: 0.9rem;
+      color: #bdbdbd;
+      padding: 0 1rem;
+    }
+    footer .contact {
+      margin-top: 0.9rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.6rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    footer .contact a,
+    footer .contact span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #ffb703;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+    footer .contact i {
+      font-size: 1.2rem;
+    }
+
+    /* Mobile-First Responsive Design */
+    @media (max-width: 414px) {
+      .welcome-text { font-size: 1.3rem; }
+      .welcome-text small { font-size: 0.9rem; }
+      .tagline { font-size: 0.9rem; gap: 0.7rem; }
+      .logo-wrapper { width: 100px; height: 100px; }
+      .menu-item { gap: 0.8rem; padding: 0.8rem; }
+      .menu-item img { width: 55px; height: 55px; }
+    }
+    @media (max-width: 375px) {
+      .welcome-text { font-size: 1.2rem; }
+      .welcome-text small { font-size: 0.85rem; }
+      .tagline { font-size: 0.85rem; gap: 0.6rem; }
+      .logo-wrapper { width: 90px; height: 90px; }
+      .menu-item img { width: 50px; height: 50px; }
+    }
+    @media (max-width: 320px) {
+      .welcome-text { font-size: 1.1rem; }
+      .welcome-text small { font-size: 0.8rem; }
+      .tagline { font-size: 0.8rem; gap: 0.5rem; }
+      .logo-wrapper { width: 80px; height: 80px; }
+      .menu-item img { width: 45px; height: 45px; }
+    }
+    @media (min-width: 768px) {
+      .welcome-text { font-size: 1.6rem; }
+      .welcome-text small { font-size: 1.1rem; }
+      .tagline { font-size: 1.1rem; gap: 1rem; }
+      .logo-wrapper { width: 130px; height: 130px; }
+      .menu-item img { width: 70px; height: 70px; }
+    }
+  </style>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <!-- Animated Bubbles (Same as index.html) -->
+  <div class="bubble" style="width:120px;height:120px;left:20%;bottom:-120px;animation-duration:18s;"></div>
+  <div class="bubble" style="width:80px;height:80px;left:60%;bottom:-100px;animation-duration:14s;animation-delay:2s;"></div>
+  <div class="bubble" style="width:100px;height:100px;left:80%;bottom:-150px;animation-duration:20s;animation-delay:4s;"></div>
+  <div class="bubble" style="width:60px;height:60px;left:30%;bottom:-80px;animation-duration:16s;animation-delay:6s;"></div>
+  <div class="bubble" style="width:150px;height:150px;left:10%;bottom:-200px;animation-duration:22s;animation-delay:1s;"></div>
+
+  <!-- Welcome Section - Moved to the top of the body -->
+  <div class="logo-wrapper">
+    <img src="logo.png" alt="Caserina Logo">
+  </div>
+  <div class="welcome-text">
+    Welcome To Caserina Caffee
+    <small>Choose Your Items</small>
+  </div>
+  <p class="tagline">
+    <span>🍹 Refreshing Drinks</span>
+    <span>☕ Hot Coffee</span>
+    <span>🍰 Sweet Treats</span>
+  </p>
+
+  <!-- ===== COLD DRINKS (Group: drinks) ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="drinks">
+    <div class="category-header" id="group-drinks">Cold Drinks <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item">
+        <img src="smoothies.png" alt="Smoothies">
+        <div class="item-info">
+          <h3>Smoothies</h3>
+          <p>Strawberry, Mango, Passion, Peach, Mix Berries, Blueberry, Tropical</p>
+          <p class="item-price">$3.3</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="milkshake.png" alt="Milk Shakes">
+        <div class="item-info">
+          <h3>Milk Shakes</h3>
+          <p>Strawberry, Chocolate, Oreo, Lotus, Bounty, Tutty Fruity, Pistachio</p>
+          <p class="item-price">$4.5</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="frappuccino.png" alt="Frappuccino">
+        <div class="item-info">
+          <h3>Frappuccino</h3>
+          <p>Mocha, White Mocha, Caramel, Tiramisu, Irish</p>
+          <p class="item-price">$4.5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MOJITOS (Group: drinks) ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="drinks">
+    <div class="category-header">Mojitos <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item">
+        <img src="mojitopassion.png" alt="Mojito">
+        <div class="item-info">
+          <h3>Mojito</h3>
+          <p>Mint, Passion, Peach, Mango, Berries, Blue Curacao, Grenadine, Strawberry, Blueberry</p>
+          <p class="item-price">$2.8</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="mojito.png" alt="Mojito Lemonade">
+        <div class="item-info">
+          <h3>Mojito Lemonade</h3>
+          <p>Lemonade, Lemonade & Mint, Lemonade & Basil</p>
+          <p class="item-price">$3.3</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ICED TEA & COFFEE (Group: drinks) ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="drinks">
+    <div class="category-header">Iced Tea & Coffee <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item"><img src="iceteapeach.png" alt="Peach Ice Tea"><div class="item-info"><h3>Peach Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="lemonicetea.png" alt="Lemon Ice Tea"><div class="item-info"><h3>Lemon Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="peachberriesicetea.png" alt="Peach Berries Ice Tea"><div class="item-info"><h3>Peach Berries Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="peachpassionicetea.png" alt="Peach Passion Ice Tea"><div class="item-info"><h3>Peach Passion Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="caramelicecoffee.png" alt="Caramel Ice Coffee"><div class="item-info"><h3>Caramel Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="icemocha.png" alt="Ice Mocha"><div class="item-info"><h3>Ice Mocha</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="vanillaicecoffee.png" alt="Vanilla Ice Coffee"><div class="item-info"><h3>Vanilla Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="irishicecoffee.png" alt="Irish Ice Coffee"><div class="item-info"><h3>Irish Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="tiramisuicecoffee.png" alt="Tiramisu Ice Coffee"><div class="item-info"><h3>Tiramisu Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+    </div>
+  </div>
+
+  <!-- ===== HOT DRINKS (Group: drinks) ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="drinks">
+    <div class="category-header">Hot Drinks <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item"><img src="coffeelatte.png" alt="Coffee Latte"><div class="item-info"><h3>Coffee Latte</h3><p>Mocha, Caramel, Vanilla, Tiramisu, Cookies</p><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="espresso.png" alt="Espresso"><div class="item-info"><h3>Espresso</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src="tea.png" alt="Tea"><div class="item-info"><h3>Tea</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src="cocoa.png" alt="Cocoa"><div class="item-info"><h3>Cocoa</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="cappuccino.png" alt="Cappuccino"><div class="item-info"><h3>Cappuccino</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="nescafe.png" alt="Nescafe"><div class="item-info"><h3>Nescafe</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="hotchoclate.png" alt="Hot Chocolate"><div class="item-info"><h3>Hot Chocolate</h3><p class="item-price">$3.3</p></div></div>
+	  <div class="menu-item"><img src="specialhotchoclate.png" alt="Special Hot Chocolate"><div class="item-info"><h3>Special Hot Chocolate</h3><p class="item-price">$3.2</p>
+	  <p>Cookie, Coconut</p></div></div>
+	  <div class="menu-item"><img src="matcha.png" alt="Matcha"><div class="item-info"><h3>Matcha</h3><p class="item-price">$5</p>
+	  <p>Coconut, Strawberry, Cookie, Caramel, Chocolate, Vanilla, Pistachio</p></div></div>
+    </div>
+  </div>
+
+  <!-- ===== FRESH JUICES (Group: drinks) ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="drinks">
+    <div class="category-header">Fresh Juices <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item"><img src="mangofresh.png" alt="Mango Juice"><div class="item-info"><h3>Mango</h3><p class="item-price">$4.5</p></div></div>
+      <div class="menu-item"><img src="strawberryfresh.png" alt="Strawberry Juice"><div class="item-info"><h3>Strawberry</h3><p class="item-price">$3.9</p></div></div>
+      <div class="menu-item"><img src="cocktail.png" alt="Cocktail Juice"><div class="item-info"><h3>Cocktail</h3><p class="item-price">$5.0</p></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SOFT DRINKS (Group: drinks) ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="drinks">
+    <div class="category-header">Soft Drinks <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item"><img src="cannedsoftdrinks.jpg" alt="Canned Soft Drink"><div class="item-info"><h3>Canned Soft Drink</h3><p class="item-price">$1.1</p></div></div>
+    </div>
+  </div>
+
+  <!-- ===== SNACKS & NUTS (Group: snacks) ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="snacks">
+    <div class="category-header" id="group-snacks">Snacks & Nuts <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item">
+        <img src="bzourat.png" alt="Bzourat">
+        <div class="item-info">
+          <h3>Bzourat</h3>
+          <p class="item-price">$1.63</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="bzouratextra.png" alt="Bzourat Extra">
+        <div class="item-info">
+          <h3>Bzourat Extra</h3>
+          <p class="item-price">$2.2</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="kloubet.png" alt="Kloubet">
+        <div class="item-info">
+          <h3>Kloubet</h3>
+          <p class="item-price">$3.3</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="kajo.png" alt="Kajo">
+        <div class="item-info">
+          <h3>Kajo</h3>
+          <p class="item-price">$3.3</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="peanuts.png" alt="Peanuts">
+        <div class="item-info">
+          <h3>Peanuts</h3>
+          <p class="item-price">$2.2</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="lozmmala7.png" alt="Loz Mmala7">
+        <div class="item-info">
+          <h3>Loz Mmala7</h3>
+          <p class="item-price">$2.73</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="lozmdakhan.png" alt="Loz Mdakhan">
+        <div class="item-info">
+          <h3>Loz Mdakhan</h3>
+          <p class="item-price">$2.73</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="bezermayalshames.png" alt="Bezer Mayal Lshames">
+        <div class="item-info">
+          <h3>Bezer Mayal Lshames</h3>
+          <p class="item-price">$1.6</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="jazarhamed.png" alt="Jazar & Hamed">
+        <div class="item-info">
+          <h3>Jazar & Hamed</h3>
+          <p class="item-price">$1.1</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="foulhamedjazar.png" alt="Foul & Hamed & Jazar">
+        <div class="item-info">
+          <h3>Foul & Hamed & Jazar</h3>
+          <p class="item-price">$2.2</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SHISHA (Group: relax) ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="relax">
+    <div class="category-header" id="group-relax">Shisha <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item">
+        <img src="argile.png" alt="Argile">
+        <div class="item-info">
+          <h3>Argile</h3>
+          <p class="item-price">$5.5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BOUZA (Group: sweets) - Corrected placement -->
+  <div class="category" style="--desc-color:#ffb703" data-group="sweets">
+    <div class="category-header">Bouza <span>▶</span></div>
+    <div class="category-content">
+      <div class="menu-item">
+        <img src="bouzascoop.png" alt="1 Scoop Bouza">
+        <div class="item-info">
+          <h3>1 Scoop Bouza</h3>
+          <p class="item-price">$1.1</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CROISSANTS (New Group: foods) - Updated with new items ===== -->
+  <div class="category" style="--desc-color:#ffb703" data-group="foods">
+    <div class="category-header" id="group-foods">Croissants <span>▶</span></div>
+    <div class="category-content">
+      <!-- Existing Croissant Items -->
+      <div class="menu-item">
+        <img src="frutticr.png" alt="Frutti Croissant">
+        <div class="item-info">
+          <h3>Frutti Croissant</h3>
+          <p class="item-price">$3.9</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="specialcr.png" alt="Special Croissant">
+        <div class="item-info">
+          <h3>Special Croissant</h3>
+          <p class="item-price">$3.9</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="kunafacr.png" alt="Kunafa Croissant">
+        <div class="item-info">
+          <h3>Kunafa Croissant</h3>
+          <p class="item-price">$4.5</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="choccheesecr.png" alt="Chocolate OR Cheese Croissant">
+        <div class="item-info">
+          <h3>Chocolate OR Cheese Croissant</h3>
+          <p class="item-price">$1.6</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="normalcr.png" alt="Normal Croissant (سادة)">
+        <div class="item-info">
+          <h3>Normal Croissant (سادة)</h3>
+          <p class="item-price">$1.1</p>
+        </div>
+      </div>
+
+      <!-- New Croissant Items Added Below -->
+      <div class="menu-item">
+        <img src="specialhabashcr.png" alt="Habash Special Croissant">
+        <div class="item-info">
+          <h3>Habash Special Croissant</h3>
+          <p>Habash 60g, Two Cheese 60g, Zaiton, Kabis, Dora, Mayonaise, Iceberg</p>
+          <p class="item-price">$4.5</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="habashmozcr.png" alt="Habash & Mozarella Croissant">
+        <div class="item-info">
+          <h3>Habash & Mozarella Croissant</h3>
+          <p class="item-price">$3.9</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="4cheese.png" alt="4 Cheese Croissant">
+        <div class="item-info">
+          <h3>4 Cheese Croissant</h3>
+          <p>Mozarella, Kashkawan, 3akawe, Parmesan</p>
+          <p class="item-price">$4.5</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="3cheese.png" alt="3 Cheese Croissant">
+        <div class="item-info">
+          <h3>3 Cheese Croissant</h3>
+          <p>Mozarella, Kashkawan, 3ekawe</p>
+          <p class="item-price">$3.9</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="3akawecr.jpeg" alt="3akawe Croissant">
+        <div class="item-info">
+          <h3>3akawe Croissant</h3>
+          <p class="item-price">$2.7</p>
+        </div>
+      </div>
+      <div class="menu-item">
+        <img src="3akawekashcr.png" alt="3akawe & Kashkawan Croissant">
+        <div class="item-info">
+          <h3>3akawe & Kashkawan Croissant</h3>
+          <p class="item-price">$3.3</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PASTRY & SWEET (Group: sweets) - Croissants Removed ===== -->
+<div class="category" style="--desc-color:#ffb703" data-group="sweets">
+  <div class="category-header" id="group-sweets">Pastry & Sweet <span>▶</span></div>
+  <div class="category-content">
+    <!-- Eclair Items remain -->
+	<div class="menu-item">
+      <img src="eclair.png" alt="Eclair">
+      <div class="item-info">
+        <h3>Eclair</h3>
+        <p class="item-price">$2.8</p>
+      </div>
+    </div>
+	<div class="menu-item">
+      <img src="eclairextra.png" alt="Eclair Extra">
+      <div class="item-info">
+        <h3>Eclair Extra</h3>
+        <p class="item-price">$3.8</p>
+      </div>
+    </div>
+    <!-- Baba Rom -->
+	<div class="menu-item">
+      <img src="babaroom.png" alt="Baba Rom">
+      <div class="item-info">
+        <h3>Baba Rom</h3>
+        <p class="item-price">$3.8</p>
+      </div>
+    </div>
+    <!-- Cheesecake -->
+	<div class="menu-item">
+      <img src="cheesecake.png" alt="Cheese Cake">
+      <div class="item-info">
+        <h3>Cheese Cake</h3>
+        <p class="item-price">$3.8</p>
+      </div>
+    </div>
+    <!-- Donuts -->
+	<div class="menu-item">
+      <img src="donuts.png" alt="Donuts">
+      <div class="item-info">
+        <h3>Donuts</h3>
+        <p class="item-price">$2.8</p>
+      </div>
+    </div>
+    <!-- Kunafa -->
+	<div class="menu-item">
+      <img src="kunafa.png" alt="Kunafa كنافة">
+      <div class="item-info">
+        <h3>Kunafa كنافة</h3>
+        <p class="item-price">$3.3</p>
+      </div>
+    </div>
+    <!-- Swari Mini Cake -->
+	<div class="menu-item">
+      <img src="swari.png" alt="Swari Mini Cake">
+      <div class="item-info">
+        <h3>Swari Mini Cake</h3>
+        <p class="item-price">$2.8</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Container for the dynamic Back to Main Menu button -->
+  <div id="back-button-container"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Caserina. All Rights Reserved.</p>
+    <div class="contact">
+      <a href="https://wa.me/96176421443" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i> +961 76 421 443
+      </a>
+      <a href="https://www.google.com/maps?q=Touline+-+AlTamriye" target="_blank" aria-label="Location">
+        <i class="fas fa-map-marker-alt"></i> Touline - AlTamriye
+      </a>
+    </div>
+  </footer>
+
+  <!-- Accordion Script (Keep this one) -->
+  <script>
+    document.querySelectorAll('.category-header').forEach(header => {
+      const content = header.nextElementSibling;
+      header.addEventListener('click', () => {
+        const isActive = header.classList.contains('active');
+
+        // Close all
+        document.querySelectorAll('.category-content').forEach(c => {
+          c.style.maxHeight = null;
+          c.previousElementSibling.classList.remove('active');
+        });
+
+        if (!isActive) {
+          header.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      const active = document.querySelector('.category-header.active');
+      const content = active?.nextElementSibling;
+      if (content) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  </script>
+
+  <!-- NEW SCRIPT: Group Filtering Based on URL Hash (Updated to NOT auto-open and add back button) -->
+  <script>
+    // Function to filter categories based on the URL hash
+    function filterCategories() {
+      // Get the hash from the URL (e.g., "#group-drinks")
+      const hash = window.location.hash.substring(1); // Removes the '#'
+
+      // Define which groups to show for each hash
+      const groupMap = {
+        'group-drinks': ['drinks'],
+        'group-sweets': ['sweets'],
+        'group-relax': ['relax'], // Shisha
+        'group-snacks': ['snacks'],
+        'group-foods': ['foods'] // New mapping for Foods
+        // Add more mappings if needed
+      };
+
+      // Get the list of groups to show for the current hash
+      const groupsToShow = groupMap[hash] || []; // Default to empty array if hash not found
+
+      // Select all category elements
+      const allCategories = document.querySelectorAll('.category');
+
+      // Flag to check if any categories are shown
+      let categoriesShown = false;
+
+      // Iterate through each category
+      allCategories.forEach(category => {
+        // Get the data-group attribute of the category
+        const categoryGroup = category.getAttribute('data-group');
+
+        // Check if the category's group is in the list of groups to show
+        // OR if the hash is empty (show all on direct access to menu.html)
+        if (groupsToShow.includes(categoryGroup) || hash === '') {
+          // Show the category
+          category.style.display = '';
+          categoriesShown = true; // At least one category is shown
+        } else {
+          // Hide the category
+          category.style.display = 'none';
+        }
+        // Note: We no longer automatically add 'active' class or set maxHeight here.
+      });
+
+      // Handle the Back Button
+      const backButtonContainer = document.getElementById('back-button-container');
+      // Clear any existing button
+      backButtonContainer.innerHTML = '';
+
+      // If categories were shown (i.e., we came from a filtered main menu link)
+      if (categoriesShown && hash !== '') {
+        // Create the back button element
+        const backButton = document.createElement('a');
+        backButton.href = 'index.html';
+        backButton.textContent = '← Back to Main Menu';
+        // Apply styles directly to the element to ensure they apply
+        backButton.style.display = 'inline-block';
+        backButton.style.padding = '0.75rem 1.5rem';
+        backButton.style.backgroundColor = '#ffb703'; /* Gold */
+        backButton.style.color = '#1a1a2e'; /* Dark blue */
+        backButton.style.textDecoration = 'none';
+        backButton.style.borderRadius = '0.75rem';
+        backButton.style.fontWeight = 'bold';
+        backButton.style.transition = 'background-color 0.3s ease, transform 0.2s ease';
+        backButton.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; /* Add subtle shadow */
+        backButton.style.textAlign = 'center'; // Ensure text is centered
+
+        // Add hover effects via JavaScript (as they are harder to apply dynamically otherwise)
+        backButton.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#e6a300'; // Darker gold
+            this.style.transform = 'scale(1.05)';
+        });
+        backButton.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '#ffb703'; // Original gold
+            this.style.transform = 'scale(1)';
+        });
+
+        // Append the button to its container
+        backButtonContainer.appendChild(backButton);
+      }
+      // If hash is empty (direct access) or no categories shown, the container remains empty.
+    }
+
+    // Run the filter when the page loads
+    window.addEventListener('load', filterCategories);
+
+    // Optional: Re-run the filter if the hash changes (e.g., using back/forward buttons)
+    window.addEventListener('hashchange', filterCategories);
+
+  </script>
+</body>
+</html>
