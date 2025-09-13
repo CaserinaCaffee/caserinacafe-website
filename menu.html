@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Preconnect to external domains for faster resource fetching -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Caserina Caffee</title>
   <meta name="description" content="Welcome to Caserina Caffee – Refreshing Drinks, Hot Coffee, Sweet Treats. Choose your items.">
@@ -21,19 +23,18 @@
     /* --- End Background Configuration --- */
 
     body {
-      /* Use a solid background color for performance */
-      /* background-image: none; is implicit */
-      background-color: #0f3460; /* Dark blue fallback */
+      /* Solid background color for performance */
+      background-color: #0f3460;
       color: #fff;
       overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      /* Add a subtle shadow to the entire page content to separate it from the background */
+      /* Subtle shadow for depth */
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     }
 
-    /* Animated Bubbles Background - Same as index.html */
+    /* Animated Bubbles Background */
     .bubble {
       position: fixed;
       border-radius: 50%;
@@ -48,7 +49,7 @@
       100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
     }
 
-    /* Logo Wrapper - Perfect Circle (Same as index.html) */
+    /* Logo Wrapper - Perfect Circle */
     .logo-wrapper {
       width: 14vw;
       max-width: 100px;
@@ -62,12 +63,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 auto;
+      margin: 1rem auto 0; /* Simplified margin */
       filter: brightness(1.2);
       position: relative;
       z-index: 3;
-      /* Ensure it's positioned correctly at the top */
-      margin-top: 1rem;
     }
     .logo-wrapper img {
       width: 100%;
@@ -84,8 +83,7 @@
       font-weight: 700;
       color: #fff;
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
-      pointer-events: auto;
-      text-align: center;
+      text-align: center; /* Ensure text is centered */
       margin-bottom: 0.5rem;
     }
     .welcome-text small {
@@ -94,7 +92,7 @@
       color: #ffd166;
       margin-top: 6px;
       font-weight: 400;
-      text-align: center;
+      text-align: center; /* Ensure text is centered */
     }
 
     .tagline {
@@ -107,8 +105,8 @@
       gap: 1rem;
       flex-wrap: wrap;
       max-width: 90%;
-      pointer-events: auto;
-      text-align: center;
+      text-align: center; /* Ensure text is centered */
+      margin: 0 auto; /* Center the tagline container */
     }
     .tagline span {
       display: flex;
@@ -178,6 +176,8 @@
       object-fit: cover;
       background: #222;
       flex: 0 0 65px;
+      /* Add lazy loading for performance */
+      loading: lazy;
     }
     .item-info {
       flex: 1;
@@ -202,32 +202,30 @@
       margin-top: 0.2rem;
     }
 
-    /* Back to Main Menu Button Style (Standalone at the end) */
+    /* Back to Main Menu Button Style */
     #back-button-container {
         text-align: center;
-        margin: 2rem 1rem; /* Add some vertical margin */
-        /* Ensure it's visible even if last category is short */
-        min-height: 60px; /* Approximate button height + margins */
+        margin: 2rem 1rem;
+        min-height: 60px; /* Ensure space for button */
         display: flex;
         justify-content: center;
         align-items: center;
     }
     #back-button-container a {
         display: inline-block;
-        padding: 0.75rem 1.5rem; /* Slightly larger padding */
-        background-color: #ffb703; /* Gold */
-        color: #1a1a2e; /* Dark blue background color */
+        padding: 0.75rem 1.5rem;
+        background-color: #ffb703;
+        color: #1a1a2e;
         text-decoration: none;
-        border-radius: 0.75rem; /* Slightly larger radius */
+        border-radius: 0.75rem;
         font-weight: bold;
         transition: background-color 0.3s ease, transform 0.2s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
-        /* Ensure it's a block element for transitions */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         width: auto;
     }
     #back-button-container a:hover {
-        background-color: #e6a300; /* Slightly darker gold on hover */
-        transform: scale(1.05); /* Slight scale on hover */
+        background-color: #e6a300;
+        transform: scale(1.05);
     }
 
 
@@ -292,21 +290,21 @@
     }
   </style>
 
-  <!-- Font Awesome Icons -->
+  <!-- Font Awesome Icons (Preconnect added above) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-  <!-- Animated Bubbles (Same as index.html) -->
+  <!-- Animated Bubbles -->
   <div class="bubble" style="width:120px;height:120px;left:20%;bottom:-120px;animation-duration:18s;"></div>
   <div class="bubble" style="width:80px;height:80px;left:60%;bottom:-100px;animation-duration:14s;animation-delay:2s;"></div>
   <div class="bubble" style="width:100px;height:100px;left:80%;bottom:-150px;animation-duration:20s;animation-delay:4s;"></div>
   <div class="bubble" style="width:60px;height:60px;left:30%;bottom:-80px;animation-duration:16s;animation-delay:6s;"></div>
   <div class="bubble" style="width:150px;height:150px;left:10%;bottom:-200px;animation-duration:22s;animation-delay:1s;"></div>
 
-  <!-- Welcome Section - Moved to the top of the body -->
+  <!-- Welcome Section -->
   <div class="logo-wrapper">
-    <img src="logo.png" alt="Caserina Logo">
+    <img src="logo.png" alt="Caserina Logo" loading="lazy">
   </div>
   <div class="welcome-text">
     Welcome To Caserina Caffee
@@ -323,7 +321,7 @@
     <div class="category-header" id="group-drinks">Cold Drinks <span>▶</span></div>
     <div class="category-content">
       <div class="menu-item">
-        <img src="smoothies.png" alt="Smoothies">
+        <img src="smoothies.png" alt="Smoothies" loading="lazy">
         <div class="item-info">
           <h3>Smoothies</h3>
           <p>Strawberry, Mango, Passion, Peach, Mix Berries, Blueberry, Tropical</p>
@@ -331,7 +329,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="milkshake.png" alt="Milk Shakes">
+        <img src="milkshake.png" alt="Milk Shakes" loading="lazy">
         <div class="item-info">
           <h3>Milk Shakes</h3>
           <p>Strawberry, Chocolate, Oreo, Lotus, Bounty, Tutty Fruity, Pistachio</p>
@@ -339,7 +337,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="frappuccino.png" alt="Frappuccino">
+        <img src="frappuccino.png" alt="Frappuccino" loading="lazy">
         <div class="item-info">
           <h3>Frappuccino</h3>
           <p>Mocha, White Mocha, Caramel, Tiramisu, Irish</p>
@@ -354,7 +352,7 @@
     <div class="category-header">Mojitos <span>▶</span></div>
     <div class="category-content">
       <div class="menu-item">
-        <img src="mojitopassion.png" alt="Mojito">
+        <img src="mojitopassion.png" alt="Mojito" loading="lazy">
         <div class="item-info">
           <h3>Mojito</h3>
           <p>Mint, Passion, Peach, Mango, Berries, Blue Curacao, Grenadine, Strawberry, Blueberry</p>
@@ -362,7 +360,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="mojito.png" alt="Mojito Lemonade">
+        <img src="mojito.png" alt="Mojito Lemonade" loading="lazy">
         <div class="item-info">
           <h3>Mojito Lemonade</h3>
           <p>Lemonade, Lemonade & Mint, Lemonade & Basil</p>
@@ -376,15 +374,15 @@
   <div class="category" style="--desc-color:#ffb703" data-group="drinks">
     <div class="category-header">Iced Tea & Coffee <span>▶</span></div>
     <div class="category-content">
-      <div class="menu-item"><img src="iceteapeach.png" alt="Peach Ice Tea"><div class="item-info"><h3>Peach Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="lemonicetea.png" alt="Lemon Ice Tea"><div class="item-info"><h3>Lemon Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="peachberriesicetea.png" alt="Peach Berries Ice Tea"><div class="item-info"><h3>Peach Berries Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="peachpassionicetea.png" alt="Peach Passion Ice Tea"><div class="item-info"><h3>Peach Passion Ice Tea</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="caramelicecoffee.png" alt="Caramel Ice Coffee"><div class="item-info"><h3>Caramel Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="icemocha.png" alt="Ice Mocha"><div class="item-info"><h3>Ice Mocha</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="vanillaicecoffee.png" alt="Vanilla Ice Coffee"><div class="item-info"><h3>Vanilla Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="irishicecoffee.png" alt="Irish Ice Coffee"><div class="item-info"><h3>Irish Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="tiramisuicecoffee.png" alt="Tiramisu Ice Coffee"><div class="item-info"><h3>Tiramisu Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="iceteapeach.png" alt="Peach Ice Tea" loading="lazy"><div class="item-info"><h3>Peach Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="lemonicetea.png" alt="Lemon Ice Tea" loading="lazy"><div class="item-info"><h3>Lemon Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="peachberriesicetea.png" alt="Peach Berries Ice Tea" loading="lazy"><div class="item-info"><h3>Peach Berries Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="peachpassionicetea.png" alt="Peach Passion Ice Tea" loading="lazy"><div class="item-info"><h3>Peach Passion Ice Tea</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="caramelicecoffee.png" alt="Caramel Ice Coffee" loading="lazy"><div class="item-info"><h3>Caramel Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="icemocha.png" alt="Ice Mocha" loading="lazy"><div class="item-info"><h3>Ice Mocha</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="vanillaicecoffee.png" alt="Vanilla Ice Coffee" loading="lazy"><div class="item-info"><h3>Vanilla Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="irishicecoffee.png" alt="Irish Ice Coffee" loading="lazy"><div class="item-info"><h3>Irish Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="tiramisuicecoffee.png" alt="Tiramisu Ice Coffee" loading="lazy"><div class="item-info"><h3>Tiramisu Ice Coffee</h3><p class="item-price">$2.8</p></div></div>
     </div>
   </div>
 
@@ -392,16 +390,16 @@
   <div class="category" style="--desc-color:#ffb703" data-group="drinks">
     <div class="category-header">Hot Drinks <span>▶</span></div>
     <div class="category-content">
-      <div class="menu-item"><img src="coffeelatte.png" alt="Coffee Latte"><div class="item-info"><h3>Coffee Latte</h3><p>Mocha, Caramel, Vanilla, Tiramisu, Cookies</p><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="espresso.png" alt="Espresso"><div class="item-info"><h3>Espresso</h3><p class="item-price">$1.1</p></div></div>
-      <div class="menu-item"><img src="tea.png" alt="Tea"><div class="item-info"><h3>Tea</h3><p class="item-price">$1.1</p></div></div>
-      <div class="menu-item"><img src="cocoa.png" alt="Cocoa"><div class="item-info"><h3>Cocoa</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="cappuccino.png" alt="Cappuccino"><div class="item-info"><h3>Cappuccino</h3><p class="item-price">$2.8</p></div></div>
-      <div class="menu-item"><img src="nescafe.png" alt="Nescafe"><div class="item-info"><h3>Nescafe</h3><p class="item-price">$2.2</p></div></div>
-      <div class="menu-item"><img src="hotchoclate.png" alt="Hot Chocolate"><div class="item-info"><h3>Hot Chocolate</h3><p class="item-price">$3.3</p></div></div>
-	  <div class="menu-item"><img src="specialhotchoclate.png" alt="Special Hot Chocolate"><div class="item-info"><h3>Special Hot Chocolate</h3><p class="item-price">$3.2</p>
+      <div class="menu-item"><img src="coffeelatte.png" alt="Coffee Latte" loading="lazy"><div class="item-info"><h3>Coffee Latte</h3><p>Mocha, Caramel, Vanilla, Tiramisu, Cookies</p><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="espresso.png" alt="Espresso" loading="lazy"><div class="item-info"><h3>Espresso</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src="tea.png" alt="Tea" loading="lazy"><div class="item-info"><h3>Tea</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src="cocoa.png" alt="Cocoa" loading="lazy"><div class="item-info"><h3>Cocoa</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="cappuccino.png" alt="Cappuccino" loading="lazy"><div class="item-info"><h3>Cappuccino</h3><p class="item-price">$2.8</p></div></div>
+      <div class="menu-item"><img src="nescafe.png" alt="Nescafe" loading="lazy"><div class="item-info"><h3>Nescafe</h3><p class="item-price">$2.2</p></div></div>
+      <div class="menu-item"><img src="hotchoclate.png" alt="Hot Chocolate" loading="lazy"><div class="item-info"><h3>Hot Chocolate</h3><p class="item-price">$3.3</p></div></div>
+	  <div class="menu-item"><img src="specialhotchoclate.png" alt="Special Hot Chocolate" loading="lazy"><div class="item-info"><h3>Special Hot Chocolate</h3><p class="item-price">$3.2</p>
 	  <p>Cookie, Coconut</p></div></div>
-	  <div class="menu-item"><img src="matcha.png" alt="Matcha"><div class="item-info"><h3>Matcha</h3><p class="item-price">$5</p>
+	  <div class="menu-item"><img src="matcha.png" alt="Matcha" loading="lazy"><div class="item-info"><h3>Matcha</h3><p class="item-price">$5</p>
 	  <p>Coconut, Strawberry, Cookie, Caramel, Chocolate, Vanilla, Pistachio</p></div></div>
     </div>
   </div>
@@ -410,9 +408,9 @@
   <div class="category" style="--desc-color:#ffb703" data-group="drinks">
     <div class="category-header">Fresh Juices <span>▶</span></div>
     <div class="category-content">
-      <div class="menu-item"><img src="mangofresh.png" alt="Mango Juice"><div class="item-info"><h3>Mango</h3><p class="item-price">$4.5</p></div></div>
-      <div class="menu-item"><img src="strawberryfresh.png" alt="Strawberry Juice"><div class="item-info"><h3>Strawberry</h3><p class="item-price">$3.9</p></div></div>
-      <div class="menu-item"><img src="cocktail.png" alt="Cocktail Juice"><div class="item-info"><h3>Cocktail</h3><p class="item-price">$5.0</p></div></div>
+      <div class="menu-item"><img src="mangofresh.png" alt="Mango Juice" loading="lazy"><div class="item-info"><h3>Mango</h3><p class="item-price">$4.5</p></div></div>
+      <div class="menu-item"><img src="strawberryfresh.png" alt="Strawberry Juice" loading="lazy"><div class="item-info"><h3>Strawberry</h3><p class="item-price">$3.9</p></div></div>
+      <div class="menu-item"><img src="cocktail.png" alt="Cocktail Juice" loading="lazy"><div class="item-info"><h3>Cocktail</h3><p class="item-price">$5.0</p></div></div>
     </div>
   </div>
 
@@ -420,7 +418,7 @@
   <div class="category" style="--desc-color:#ffb703" data-group="drinks">
     <div class="category-header">Soft Drinks <span>▶</span></div>
     <div class="category-content">
-      <div class="menu-item"><img src="cannedsoftdrinks.jpg" alt="Canned Soft Drink"><div class="item-info"><h3>Canned Soft Drink</h3><p class="item-price">$1.1</p></div></div>
+      <div class="menu-item"><img src="cannedsoftdrinks.jpg" alt="Canned Soft Drink" loading="lazy"><div class="item-info"><h3>Canned Soft Drink</h3><p class="item-price">$1.1</p></div></div>
     </div>
   </div>
 
@@ -429,70 +427,70 @@
     <div class="category-header" id="group-snacks">Snacks & Nuts <span>▶</span></div>
     <div class="category-content">
       <div class="menu-item">
-        <img src="bzourat.png" alt="Bzourat">
+        <img src="bzourat.png" alt="Bzourat" loading="lazy">
         <div class="item-info">
           <h3>Bzourat</h3>
           <p class="item-price">$1.63</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="bzouratextra.png" alt="Bzourat Extra">
+        <img src="bzouratextra.png" alt="Bzourat Extra" loading="lazy">
         <div class="item-info">
           <h3>Bzourat Extra</h3>
           <p class="item-price">$2.2</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="kloubet.png" alt="Kloubet">
+        <img src="kloubet.png" alt="Kloubet" loading="lazy">
         <div class="item-info">
           <h3>Kloubet</h3>
           <p class="item-price">$3.3</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="kajo.png" alt="Kajo">
+        <img src="kajo.png" alt="Kajo" loading="lazy">
         <div class="item-info">
           <h3>Kajo</h3>
           <p class="item-price">$3.3</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="peanuts.png" alt="Peanuts">
+        <img src="peanuts.png" alt="Peanuts" loading="lazy">
         <div class="item-info">
           <h3>Peanuts</h3>
           <p class="item-price">$2.2</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="lozmmala7.png" alt="Loz Mmala7">
+        <img src="lozmmala7.png" alt="Loz Mmala7" loading="lazy">
         <div class="item-info">
           <h3>Loz Mmala7</h3>
           <p class="item-price">$2.73</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="lozmdakhan.png" alt="Loz Mdakhan">
+        <img src="lozmdakhan.png" alt="Loz Mdakhan" loading="lazy">
         <div class="item-info">
           <h3>Loz Mdakhan</h3>
           <p class="item-price">$2.73</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="bezermayalshames.png" alt="Bezer Mayal Lshames">
+        <img src="bezermayalshames.png" alt="Bezer Mayal Lshames" loading="lazy">
         <div class="item-info">
           <h3>Bezer Mayal Lshames</h3>
           <p class="item-price">$1.6</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="jazarhamed.png" alt="Jazar & Hamed">
+        <img src="jazarhamed.png" alt="Jazar & Hamed" loading="lazy">
         <div class="item-info">
           <h3>Jazar & Hamed</h3>
           <p class="item-price">$1.1</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="foulhamedjazar.png" alt="Foul & Hamed & Jazar">
+        <img src="foulhamedjazar.png" alt="Foul & Hamed & Jazar" loading="lazy">
         <div class="item-info">
           <h3>Foul & Hamed & Jazar</h3>
           <p class="item-price">$2.2</p>
@@ -506,7 +504,7 @@
     <div class="category-header" id="group-relax">Shisha <span>▶</span></div>
     <div class="category-content">
       <div class="menu-item">
-        <img src="argile.png" alt="Argile">
+        <img src="argile.png" alt="Argile" loading="lazy">
         <div class="item-info">
           <h3>Argile</h3>
           <p class="item-price">$5.5</p>
@@ -515,12 +513,12 @@
     </div>
   </div>
 
-  <!-- ===== BOUZA (Group: sweets) - Corrected placement -->
+  <!-- ===== BOUZA (Group: sweets) -->
   <div class="category" style="--desc-color:#ffb703" data-group="sweets">
     <div class="category-header">Bouza <span>▶</span></div>
     <div class="category-content">
       <div class="menu-item">
-        <img src="bouzascoop.png" alt="1 Scoop Bouza">
+        <img src="bouzascoop.png" alt="1 Scoop Bouza" loading="lazy">
         <div class="item-info">
           <h3>1 Scoop Bouza</h3>
           <p class="item-price">$1.1</p>
@@ -529,50 +527,47 @@
     </div>
   </div>
 
-  <!-- ===== CROISSANTS (New Group: foods) - Updated with new items ===== -->
+  <!-- ===== CROISSANTS (Group: foods) - Updated with new items ===== -->
   <div class="category" style="--desc-color:#ffb703" data-group="foods">
     <div class="category-header" id="group-foods">Croissants <span>▶</span></div>
     <div class="category-content">
-      <!-- Existing Croissant Items -->
       <div class="menu-item">
-        <img src="frutticr.png" alt="Frutti Croissant">
+        <img src="frutticr.png" alt="Frutti Croissant" loading="lazy">
         <div class="item-info">
           <h3>Frutti Croissant</h3>
           <p class="item-price">$3.9</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="specialcr.png" alt="Special Croissant">
+        <img src="specialcr.png" alt="Special Croissant" loading="lazy">
         <div class="item-info">
           <h3>Special Croissant</h3>
           <p class="item-price">$3.9</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="kunafacr.png" alt="Kunafa Croissant">
+        <img src="kunafacr.png" alt="Kunafa Croissant" loading="lazy">
         <div class="item-info">
           <h3>Kunafa Croissant</h3>
           <p class="item-price">$4.5</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="choccheesecr.png" alt="Chocolate OR Cheese Croissant">
+        <img src="choccheesecr.png" alt="Chocolate OR Cheese Croissant" loading="lazy">
         <div class="item-info">
           <h3>Chocolate OR Cheese Croissant</h3>
           <p class="item-price">$1.6</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="normalcr.png" alt="Normal Croissant (سادة)">
+        <img src="normalcr.png" alt="Normal Croissant (سادة)" loading="lazy">
         <div class="item-info">
           <h3>Normal Croissant (سادة)</h3>
           <p class="item-price">$1.1</p>
         </div>
       </div>
-
-      <!-- New Croissant Items Added Below -->
       <div class="menu-item">
-        <img src="specialhabashcr.png" alt="Habash Special Croissant">
+        <img src="specialhabashcr.png" alt="Habash Special Croissant" loading="lazy">
         <div class="item-info">
           <h3>Habash Special Croissant</h3>
           <p>Habash 60g, Two Cheese 60g, Zaiton, Kabis, Dora, Mayonaise, Iceberg</p>
@@ -580,14 +575,14 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="habashmozcr.png" alt="Habash & Mozarella Croissant">
+        <img src="habashmozcr.png" alt="Habash & Mozarella Croissant" loading="lazy">
         <div class="item-info">
           <h3>Habash & Mozarella Croissant</h3>
           <p class="item-price">$3.9</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="4cheese.png" alt="4 Cheese Croissant">
+        <img src="4cheese.png" alt="4 Cheese Croissant" loading="lazy">
         <div class="item-info">
           <h3>4 Cheese Croissant</h3>
           <p>Mozarella, Kashkawan, 3akawe, Parmesan</p>
@@ -595,7 +590,7 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="3cheese.png" alt="3 Cheese Croissant">
+        <img src="3cheese.png" alt="3 Cheese Croissant" loading="lazy">
         <div class="item-info">
           <h3>3 Cheese Croissant</h3>
           <p>Mozarella, Kashkawan, 3ekawe</p>
@@ -603,14 +598,14 @@
         </div>
       </div>
       <div class="menu-item">
-        <img src="3akawecr.jpeg" alt="3akawe Croissant">
+        <img src="3akawecr.jpeg" alt="3akawe Croissant" loading="lazy"> <!-- Note: .jpeg extension -->
         <div class="item-info">
           <h3>3akawe Croissant</h3>
           <p class="item-price">$2.7</p>
         </div>
       </div>
       <div class="menu-item">
-        <img src="3akawekashcr.png" alt="3akawe & Kashkawan Croissant">
+        <img src="3akawekashcr.png" alt="3akawe & Kashkawan Croissant" loading="lazy">
         <div class="item-info">
           <h3>3akawe & Kashkawan Croissant</h3>
           <p class="item-price">$3.3</p>
@@ -619,60 +614,54 @@
     </div>
   </div>
 
-  <!-- ===== PASTRY & SWEET (Group: sweets) - Croissants Removed ===== -->
+  <!-- ===== PASTRY & SWEET (Group: sweets) ===== -->
 <div class="category" style="--desc-color:#ffb703" data-group="sweets">
   <div class="category-header" id="group-sweets">Pastry & Sweet <span>▶</span></div>
   <div class="category-content">
-    <!-- Eclair Items remain -->
 	<div class="menu-item">
-      <img src="eclair.png" alt="Eclair">
+      <img src="eclair.png" alt="Eclair" loading="lazy">
       <div class="item-info">
         <h3>Eclair</h3>
         <p class="item-price">$2.8</p>
       </div>
     </div>
 	<div class="menu-item">
-      <img src="eclairextra.png" alt="Eclair Extra">
+      <img src="eclairextra.png" alt="Eclair Extra" loading="lazy">
       <div class="item-info">
         <h3>Eclair Extra</h3>
         <p class="item-price">$3.8</p>
       </div>
     </div>
-    <!-- Baba Rom -->
 	<div class="menu-item">
-      <img src="babaroom.png" alt="Baba Rom">
+      <img src="babaroom.png" alt="Baba Rom" loading="lazy">
       <div class="item-info">
         <h3>Baba Rom</h3>
         <p class="item-price">$3.8</p>
       </div>
     </div>
-    <!-- Cheesecake -->
 	<div class="menu-item">
-      <img src="cheesecake.png" alt="Cheese Cake">
+      <img src="cheesecake.png" alt="Cheese Cake" loading="lazy">
       <div class="item-info">
         <h3>Cheese Cake</h3>
         <p class="item-price">$3.8</p>
       </div>
     </div>
-    <!-- Donuts -->
 	<div class="menu-item">
-      <img src="donuts.png" alt="Donuts">
+      <img src="donuts.png" alt="Donuts" loading="lazy">
       <div class="item-info">
         <h3>Donuts</h3>
         <p class="item-price">$2.8</p>
       </div>
     </div>
-    <!-- Kunafa -->
 	<div class="menu-item">
-      <img src="kunafa.png" alt="Kunafa كنافة">
+      <img src="kunafa.png" alt="Kunafa كنافة" loading="lazy">
       <div class="item-info">
         <h3>Kunafa كنافة</h3>
         <p class="item-price">$3.3</p>
       </div>
     </div>
-    <!-- Swari Mini Cake -->
 	<div class="menu-item">
-      <img src="swari.png" alt="Swari Mini Cake">
+      <img src="swari.png" alt="Swari Mini Cake" loading="lazy">
       <div class="item-info">
         <h3>Swari Mini Cake</h3>
         <p class="item-price">$2.8</p>
@@ -697,7 +686,7 @@
     </div>
   </footer>
 
-  <!-- Accordion Script (Keep this one) -->
+  <!-- Accordion Script -->
   <script>
     document.querySelectorAll('.category-header').forEach(header => {
       const content = header.nextElementSibling;
@@ -726,7 +715,7 @@
     });
   </script>
 
-  <!-- NEW SCRIPT: Group Filtering Based on URL Hash (Updated to NOT auto-open and add back button) -->
+  <!-- NEW SCRIPT: Group Filtering Based on URL Hash -->
   <script>
     // Function to filter categories based on the URL hash
     function filterCategories() {
